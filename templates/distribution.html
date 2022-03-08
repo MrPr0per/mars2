@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h3>Размещение по каютам</h3>
+    <ul>
+        {% set ekipage = ['Иван Петров', 'Денис Петров','Владимир Иванович','Иван пладимирович','Петр Петров'] %}
+        {% for name in ekipage %}
+            <li>{{name}} - Каюта № {{loop.index}} {% if loop.first %} - капитан корабля {% endif %}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
