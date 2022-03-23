@@ -201,18 +201,16 @@ def distribution():
 if __name__ == '__main__':
     db_session.global_init("db/mars_explorer.db")
 
-
-    session = db_session.create_session()
-
-    job = Jobs()
-    job.team_leader = 1
-    job.job = 'abo'
-    job.work_size = 15
-    job.collaborators = 'ba'
-    job.is_finished = False
-    session.add(job)
-
-    session.commit()
-
+    # session = db_session.create_session()
+    #
+    # job = Jobs()
+    # job.team_leader = 1
+    # job.job = 'abo'
+    # job.work_size = 15
+    # job.collaborators = 'ba'
+    # job.is_finished = False
+    # session.add(job)
+    #
+    # session.commit()
 
     app.run(port=8080, host='127.0.0.1')
