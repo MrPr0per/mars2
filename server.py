@@ -4,6 +4,7 @@ from data.users import User
 from data.jobs import Jobs
 from forms.register_form import RegisterForm
 from forms.login_form import LoginForm
+from forms.add_job_form import AddJobForm
 from flask_login import LoginManager, login_user, login_required, logout_user
 
 app = Flask(__name__)
@@ -220,6 +221,26 @@ def jobs_list():
     session = db_session.create_session()
     jobs = session.query(Jobs).all()
     return render_template('jobs_list.html', jobs=jobs)
+
+
+@app.route('/add_job', methods=['GET', 'POST'])
+@login_required
+def add_job():
+    form = AddJobForm()
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        job = Jobs()
+
+        job.team_leader = form.team_leader.data
+        job.job = form.job.data
+        job.work_size = form.work_size.data
+        job.collaborators = form.collaborators.data
+        job.is_finished = False
+
+        db_sess.add(job)
+        db_sess.commit()
+        return redirect('/jobs_list')
+    return render_template('add_job.html', form=form)
 
 
 @app.route('/register', methods=['GET', 'POST'])
