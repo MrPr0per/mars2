@@ -1,3 +1,6 @@
+import json
+import random
+
 from flask import Flask, render_template, url_for, request, redirect
 from data import db_session
 from data.users import User
@@ -297,6 +300,14 @@ def logout():
 @app.route('/test_img')
 def test():
     return render_template('test.html')
+
+
+@app.route('/member')
+def member():
+    data = json.load(open('templates/profiles.json', encoding='utf8'))
+    name, surename, image, jobs = random.choice(data).values()
+    jobs = '; '.join(jobs)
+    return render_template('member.html', name=name, surename=surename, image=image, jobs=jobs)
 
 
 if __name__ == '__main__':
